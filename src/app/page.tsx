@@ -48,9 +48,45 @@ export default function Home() {
           backgroundSize: '40px 40px'
         }} />
 
+        {/* Floating guest photo collage - hidden on mobile */}
+        <div className="hidden lg:block absolute inset-0 z-0">
+          {/* Top left - Max Tegmark */}
+          <div className="absolute top-[15%] left-[8%] w-28 h-28 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float">
+            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/03/maxtegmark.jpg" alt="Max Tegmark" className="w-full h-full object-cover" />
+          </div>
+          {/* Top right - Hannah Fry */}
+          <div className="absolute top-[12%] right-[10%] w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-200">
+            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/06/cropped-Hannah_Theatre-seats2-copy-1-scaled-1.jpeg" alt="Hannah Fry" className="w-full h-full object-cover" />
+          </div>
+          {/* Middle left - Adam Cheyer */}
+          <div className="absolute top-[45%] left-[4%] w-20 h-20 rounded-full overflow-hidden border-2 border-[#03a9f4]/20 shadow-2xl opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-300">
+            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/07/adam_cheyer.jpg" alt="Adam Cheyer" className="w-full h-full object-cover" />
+          </div>
+          {/* Middle right - Gene Kim */}
+          <div className="absolute top-[40%] right-[5%] w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-40 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-100">
+            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/09/Gene-Kime.jpg" alt="Gene Kim" className="w-full h-full object-cover" />
+          </div>
+          {/* Bottom left - Cade Metz */}
+          <div className="absolute bottom-[20%] left-[12%] w-20 h-20 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-40 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-400">
+            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/09/14TECHUSING-1-superJumbo.jpeg" alt="Cade Metz" className="w-full h-full object-cover" />
+          </div>
+          {/* Bottom right - Beena Ammanath */}
+          <div className="absolute bottom-[18%] right-[8%] w-28 h-28 rounded-full overflow-hidden border-2 border-[#03a9f4]/20 shadow-2xl opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-200">
+            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2023/02/beena.jpg" alt="Beena Ammanath" className="w-full h-full object-cover" />
+          </div>
+          {/* Center left - Dave Anderson (host) */}
+          <div className="absolute bottom-[35%] left-[18%] w-16 h-16 rounded-full overflow-hidden border-2 border-[#03a9f4]/30 shadow-2xl opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-300">
+            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2023/03/dave-1.png" alt="Dave Anderson" className="w-full h-full object-cover" />
+          </div>
+          {/* Top center-right - Jana Eggers */}
+          <div className="absolute top-[22%] right-[25%] w-16 h-16 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-35 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-100">
+            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/10/maxresdefault-e1633405949727.jpeg" alt="Jana Eggers" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-32">
           <div className="animate-fade-in-up">
-            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-black tracking-tight">
+            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-black tracking-tight drop-shadow-2xl">
               TECH{" "}
               <span className="text-[#03a9f4] animate-glow">
                 &lt;SEEKING&gt;
