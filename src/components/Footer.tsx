@@ -20,7 +20,7 @@ export default function Footer() {
             <a href="https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-[#1DB954] transition-colors" aria-label="Spotify">
               <SpotifyIcon className="w-6 h-6" />
             </a>
-            <a href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-purple-400 transition-colors" aria-label="Apple Podcasts">
+            <a href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1571011755" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-purple-400 transition-colors" aria-label="Apple Podcasts">
               <ApplePodcastIcon className="w-6 h-6" />
             </a>
           </div>
@@ -39,7 +39,7 @@ export default function Footer() {
             <p className="text-[10px] uppercase tracking-[0.2em] font-label font-bold text-[#8dcdff]">Listen On</p>
             <ul className="space-y-3 text-sm font-label">
               <li><a className="text-slate-500 hover:text-[#8dcdff] transition-colors" href="https://www.youtube.com/@techseekinghuman" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-              <li><a className="text-slate-500 hover:text-[#8dcdff] transition-colors" href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009" target="_blank" rel="noopener noreferrer">Apple Podcasts</a></li>
+              <li><a className="text-slate-500 hover:text-[#8dcdff] transition-colors" href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1571011755" target="_blank" rel="noopener noreferrer">Apple Podcasts</a></li>
               <li><a className="text-slate-500 hover:text-[#8dcdff] transition-colors" href="https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW" target="_blank" rel="noopener noreferrer">Spotify</a></li>
             </ul>
           </div>

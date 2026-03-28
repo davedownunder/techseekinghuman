@@ -99,7 +99,7 @@ export interface EpisodeLinks {
 
 const SHOW_YOUTUBE = "https://www.youtube.com/@techseekinghuman";
 const SHOW_SPOTIFY = "https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW";
-const SHOW_APPLE = "https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009";
+const SHOW_APPLE = "https://podcasts.apple.com/au/podcast/tech-seeking-human/id1571011755";
 
 export function getEpisodeLinks(post: WPPost): EpisodeLinks {
   const content = post.content;
