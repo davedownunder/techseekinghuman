@@ -1,327 +1,219 @@
 import Link from "next/link";
-import PostCard from "@/components/PostCard";
-import FeaturedGuest from "@/components/FeaturedGuest";
-import { getPodcasts, getBlogPosts } from "@/lib/content";
+import { getPodcasts, getBlogPosts, getFeaturedImageUrl, getExcerpt, formatDate } from "@/lib/content";
 
 const featuredGuests = [
   {
     name: "Max Tegmark",
-    title: "MIT Professor & Future of Life Institute Founder",
-    quote:
-      "We have less than 50% probability of society surviving the next 50 years.",
-    image:
-      "https://www.techseekinghuman.ai/wp-content/uploads/2021/03/maxtegmark.jpg",
+    title: "MIT Professor & Future of Life Institute",
+    image: "https://www.techseekinghuman.ai/wp-content/uploads/2021/03/maxtegmark.jpg",
     slug: "episode-2-max-tegmark",
   },
   {
     name: "Adam Cheyer",
     title: "Co-founder of Siri",
-    quote:
-      "I turned down Steve Jobs. Then I changed my mind and it changed the world.",
-    image:
-      "https://www.techseekinghuman.ai/wp-content/uploads/2021/07/adam_cheyer.jpg",
+    image: "https://www.techseekinghuman.ai/wp-content/uploads/2021/07/adam_cheyer.jpg",
     slug: "adam-cheyer-siri-co-founder-on-the-rise-of-mainstream-ai",
   },
   {
     name: "Hannah Fry",
-    title: "BBC Presenter, Author & Mathematician",
-    quote:
-      "There just always seems to be a touch of class when Hannah is in the room.",
-    image:
-      "https://www.techseekinghuman.ai/wp-content/uploads/2021/06/cropped-Hannah_Theatre-seats2-copy-1-scaled-1.jpeg",
+    title: "BBC Presenter & Mathematician",
+    image: "https://www.techseekinghuman.ai/wp-content/uploads/2021/06/cropped-Hannah_Theatre-seats2-copy-1-scaled-1.jpeg",
     slug: "hannah-fry-cookies-cows-and-the-future-of-ai",
   },
 ];
 
 export default function Home() {
   const podcasts = getPodcasts();
-  const latestPodcasts = podcasts.slice(0, 7);
-  const blogPosts = getBlogPosts().slice(0, 3);
+  const latest = podcasts.slice(0, 5);
+  const latestImg = latest[0] ? getFeaturedImageUrl(latest[0]) : null;
 
   return (
     <>
-      {/* Hero */}
-      <section className="hero-gradient text-white min-h-[100vh] flex items-center justify-center relative overflow-hidden">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }} />
-
-        {/* Floating guest photo collage - hidden on mobile */}
-        <div className="hidden lg:block absolute inset-0 z-0">
-          {/* Top left - Max Tegmark */}
-          <div className="absolute top-[15%] left-[8%] w-28 h-28 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float">
-            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/03/maxtegmark.jpg" alt="Max Tegmark" className="w-full h-full object-cover" />
-          </div>
-          {/* Top right - Hannah Fry */}
-          <div className="absolute top-[12%] right-[10%] w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-200">
-            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/06/cropped-Hannah_Theatre-seats2-copy-1-scaled-1.jpeg" alt="Hannah Fry" className="w-full h-full object-cover" />
-          </div>
-          {/* Middle left - Adam Cheyer */}
-          <div className="absolute top-[45%] left-[4%] w-20 h-20 rounded-full overflow-hidden border-2 border-[#03a9f4]/20 shadow-2xl opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-300">
-            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/07/adam_cheyer.jpg" alt="Adam Cheyer" className="w-full h-full object-cover" />
-          </div>
-          {/* Middle right - Gene Kim */}
-          <div className="absolute top-[40%] right-[5%] w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-40 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-100">
-            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/09/Gene-Kime.jpg" alt="Gene Kim" className="w-full h-full object-cover" />
-          </div>
-          {/* Bottom left - Cade Metz */}
-          <div className="absolute bottom-[20%] left-[12%] w-20 h-20 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-40 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-400">
-            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/09/14TECHUSING-1-superJumbo.jpeg" alt="Cade Metz" className="w-full h-full object-cover" />
-          </div>
-          {/* Bottom right - Beena Ammanath */}
-          <div className="absolute bottom-[18%] right-[8%] w-28 h-28 rounded-full overflow-hidden border-2 border-[#03a9f4]/20 shadow-2xl opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-200">
-            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2023/02/beena.jpg" alt="Beena Ammanath" className="w-full h-full object-cover" />
-          </div>
-          {/* Center left - Dave Anderson (host) */}
-          <div className="absolute bottom-[35%] left-[18%] w-16 h-16 rounded-full overflow-hidden border-2 border-[#03a9f4]/30 shadow-2xl opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-300">
-            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2023/03/dave-1.png" alt="Dave Anderson" className="w-full h-full object-cover" />
-          </div>
-          {/* Top center-right - Jana Eggers */}
-          <div className="absolute top-[22%] right-[25%] w-16 h-16 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl opacity-35 hover:opacity-100 hover:scale-110 transition-all duration-500 animate-float animation-delay-100">
-            <img src="https://www.techseekinghuman.ai/wp-content/uploads/2021/10/maxresdefault-e1633405949727.jpeg" alt="Jana Eggers" className="w-full h-full object-cover" />
-          </div>
+      {/* Hero Section */}
+      <section className="relative min-h-[921px] flex items-center overflow-hidden px-8">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#8dcdff]/10 rounded-full blur-[120px]" />
+          <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-[#03a9f4]/5 rounded-full blur-[100px]" />
         </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-32">
-          <div className="animate-fade-in-up">
-            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-black tracking-tight drop-shadow-2xl">
-              TECH{" "}
-              <span className="text-[#03a9f4] animate-glow">
-                &lt;SEEKING&gt;
-              </span>{" "}
-              HUMAN
+        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#33324b]/50 border border-[#3e4851]/20 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-[#8dcdff] animate-pulse" />
+              <span className="text-xs font-label uppercase tracking-widest text-[#8dcdff]">New Episode Live Now</span>
+            </div>
+            <h1 className="text-6xl md:text-8xl font-headline font-bold leading-[0.9] text-white tracking-tighter">
+              Where Tech <br />
+              <span className="text-[#8dcdff] text-glow italic">Seeks</span> Humanity
             </h1>
-          </div>
-
-          <p className="mt-6 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto animate-fade-in-up animation-delay-200 opacity-0">
-            Long-form conversations exploring the human side of AI, technology,
-            and innovation with the world&apos;s leading minds.
-          </p>
-
-          {/* Platform buttons */}
-          <div className="mt-10 flex flex-wrap justify-center gap-4 animate-fade-in-up animation-delay-300 opacity-0">
-            <a
-              href="https://www.youtube.com/@techseekinghuman"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#03a9f4] hover:bg-[#0288d1] text-white font-semibold px-7 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-[#03a9f4]/25"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              Watch on YouTube
-            </a>
-            <a
-              href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-white/20 hover:border-[#03a9f4] text-white hover:text-[#03a9f4] font-semibold px-7 py-3.5 rounded-full transition-all"
-            >
-              Apple Podcasts
-            </a>
-            <a
-              href="https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-white/20 hover:border-[#1DB954] text-white hover:text-[#1DB954] font-semibold px-7 py-3.5 rounded-full transition-all"
-            >
-              Spotify
-            </a>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
-          <svg className="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
-      </section>
-
-      {/* Stats Bar */}
-      <section className="bg-[#0f0f1e] border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-3xl md:text-4xl font-heading font-black text-white">
-                {podcasts.length}+
-              </div>
-              <div className="text-xs md:text-sm text-gray-500 mt-1 uppercase tracking-wider font-semibold">
-                Episodes
-              </div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-heading font-black text-[#03a9f4]">
-                A-List
-              </div>
-              <div className="text-xs md:text-sm text-gray-500 mt-1 uppercase tracking-wider font-semibold">
-                Guests
-              </div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-heading font-black text-white">
-                AI & Tech
-              </div>
-              <div className="text-xs md:text-sm text-gray-500 mt-1 uppercase tracking-wider font-semibold">
-                Focus
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Guests */}
-      <section className="mesh-gradient py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-[#03a9f4] text-sm font-bold uppercase tracking-widest mb-3">
-              Featured Conversations
+            <p className="text-xl text-[#bec8d2] max-w-xl font-body leading-relaxed">
+              Deep conversations with the world&apos;s leading minds in AI, technology, and innovation. Exploring how algorithms are changing us, and how we&apos;re fighting back to stay human.
             </p>
-            <h2 className="font-heading text-3xl md:text-5xl font-black text-white">
-              World-Class Guests
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredGuests.map((guest) => (
-              <FeaturedGuest key={guest.slug} {...guest} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Latest Episodes */}
-      <section className="py-20 bg-[#f8fafc]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="text-[#03a9f4] text-sm font-bold uppercase tracking-widest mb-2">
-                New Episodes
-              </p>
-              <h2 className="font-heading text-3xl md:text-4xl font-black">
-                Latest Episodes
-              </h2>
-            </div>
-            <Link
-              href="/podcasts"
-              className="hidden md:inline-flex items-center gap-2 text-[#03a9f4] font-semibold hover:gap-3 transition-all"
-            >
-              View All
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-          </div>
-
-          {/* Hero card for latest episode */}
-          {latestPodcasts[0] && (
-            <div className="mb-8">
-              <PostCard
-                post={latestPodcasts[0]}
-                basePath="/podcasts"
-                variant="hero"
-              />
-            </div>
-          )}
-
-          {/* Grid for remaining */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestPodcasts.slice(1).map((post) => (
-              <PostCard key={post.slug} post={post} basePath="/podcasts" />
-            ))}
-          </div>
-
-          <div className="mt-8 text-center md:hidden">
-            <Link
-              href="/podcasts"
-              className="inline-flex items-center gap-2 text-[#03a9f4] font-semibold"
-            >
-              View All Episodes →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-[#03a9f4] text-sm font-bold uppercase tracking-widest mb-3">
-              The Podcast
-            </p>
-            <h2 className="font-heading text-3xl md:text-4xl font-black mb-6">
-              Stories Behind the Innovation
-            </h2>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              Tech Seeking Human is where technology meets humanity. Host Dave
-              Anderson sits down with the world&apos;s leading minds in AI,
-              technology, and innovation for in-depth conversations that go beyond
-              the headlines. From the co-founder of Siri to MIT professors, each
-              episode reveals the human stories driving the future.
-            </p>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 mt-8 bg-[#0f0f1e] hover:bg-[#1a1a2e] text-white font-semibold px-7 py-3.5 rounded-full transition-colors"
-            >
-              About the Show
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Posts */}
-      {blogPosts.length > 0 && (
-        <section className="py-20 bg-[#f8fafc]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-end justify-between mb-10">
-              <div>
-                <p className="text-[#03a9f4] text-sm font-bold uppercase tracking-widest mb-2">
-                  Insights & Ideas
-                </p>
-                <h2 className="font-heading text-3xl md:text-4xl font-black">
-                  From the Blog
-                </h2>
-              </div>
+            <div className="flex flex-wrap gap-4 pt-4">
               <Link
-                href="/blog"
-                className="hidden md:inline-flex items-center gap-2 text-[#03a9f4] font-semibold hover:gap-3 transition-all"
+                href={latest[0] ? `/podcasts/${latest[0].slug}` : "/podcasts"}
+                className="flex items-center gap-3 bg-gradient-to-r from-[#8dcdff] to-[#03a9f4] text-[#00344f] px-8 py-4 rounded-full font-headline font-bold text-lg shadow-lg shadow-[#8dcdff]/20 transition-all hover:scale-105"
               >
-                View All
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+                <span className="material-symbols-outlined">play_arrow</span>
+                Listen to Latest
+              </Link>
+              <Link
+                href="/podcasts"
+                className="flex items-center gap-3 glass-card border border-[#3e4851]/30 text-white px-8 py-4 rounded-full font-headline font-bold text-lg hover:bg-white/10 transition-all"
+              >
+                View All Episodes
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {blogPosts.map((post) => (
-                <PostCard key={post.slug} post={post} basePath="/blog" />
-              ))}
+          </div>
+          <div className="lg:col-span-5 relative">
+            <div className="aspect-square relative rounded-3xl overflow-hidden glass-card border border-[#3e4851]/20 p-4 transform rotate-3 shadow-2xl">
+              {latestImg ? (
+                <img
+                  src={latestImg}
+                  alt={latest[0]?.title}
+                  className="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700"
+                />
+              ) : (
+                <div className="w-full h-full rounded-2xl bg-gradient-to-br from-[#1d1d35] to-[#0c0c22]" />
+              )}
+              {latest[0] && (
+                <div className="absolute bottom-8 left-8 right-8 p-6 glass-card rounded-xl border border-white/10">
+                  <p className="text-[#8dcdff] font-label text-xs uppercase tracking-widest mb-1">Latest Episode</p>
+                  <h3 className="text-xl font-headline font-bold text-white">{latest[0].title}</h3>
+                </div>
+              )}
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* Newsletter CTA */}
-      <section className="hero-gradient py-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-3xl md:text-4xl font-black text-white mb-4">
-            Never Miss an Episode
+      {/* Featured Episodes (Bento Grid) */}
+      <section className="max-w-7xl mx-auto px-8 py-32">
+        <div className="flex justify-between items-end mb-16">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold text-white mb-4">Latest Dialogues</h2>
+            <p className="text-[#bec8d2] max-w-md font-body">Carefully curated conversations with the architects of our digital future.</p>
+          </div>
+          <div className="hidden md:block">
+            <Link href="/podcasts" className="text-[#8dcdff] font-headline font-bold flex items-center gap-2 group">
+              Browse Full Archive
+              <span className="material-symbols-outlined transition-transform group-hover:translate-x-2">arrow_forward</span>
+            </Link>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Large Card - Latest Episode */}
+          {latest[0] && (
+            <Link href={`/podcasts/${latest[0].slug}`} className="md:col-span-2 group relative rounded-3xl overflow-hidden bg-[#191930] border border-[#3e4851]/10 aspect-[16/9]">
+              {getFeaturedImageUrl(latest[0]) && (
+                <img src={getFeaturedImageUrl(latest[0])!} alt={latest[0].title} className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c22] via-[#0c0c22]/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-10 space-y-4">
+                <span className="px-3 py-1 bg-[#8dcdff]/20 text-[#8dcdff] rounded text-xs font-label font-bold uppercase tracking-widest">
+                  {latest[0].categories[0] || "Deep Dive"}
+                </span>
+                <h3 className="text-4xl font-headline font-bold text-white max-w-lg leading-tight">{latest[0].title}</h3>
+                <p className="text-[#bec8d2] max-w-sm line-clamp-2">{getExcerpt(latest[0])}</p>
+                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#111128] transform group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined">play_arrow</span>
+                </div>
+              </div>
+            </Link>
+          )}
+
+          {/* Small Cards */}
+          {latest.slice(1, 5).map((post) => {
+            const img = getFeaturedImageUrl(post);
+            return (
+              <Link key={post.slug} href={`/podcasts/${post.slug}`} className="group glass-card rounded-3xl overflow-hidden border border-[#3e4851]/10 flex flex-col p-6 space-y-6">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden">
+                  {img ? (
+                    <img src={img} alt={post.title} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-[#1d1d35] to-[#0c0c22]" />
+                  )}
+                </div>
+                <div className="flex-1 space-y-2">
+                  <p className="text-xs font-label text-[#bec8d2]">{formatDate(post.date)}</p>
+                  <h4 className="text-xl font-headline font-bold text-white group-hover:text-[#8dcdff] transition-colors">{post.title}</h4>
+                </div>
+                <span className="flex items-center gap-2 text-sm font-label font-bold uppercase tracking-wider text-[#8dcdff]">
+                  Listen Now <span className="material-symbols-outlined text-sm">headphones</span>
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* About Host Section */}
+      <section className="bg-[#191930] py-32 px-8 overflow-hidden relative">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+          <div className="lg:col-span-5 relative order-2 lg:order-1">
+            <div className="relative z-10 rounded-3xl overflow-hidden grayscale contrast-125 border border-white/5">
+              <img
+                src="https://www.techseekinghuman.ai/wp-content/uploads/2023/03/dave-1.png"
+                alt="Dave Anderson"
+                className="w-full object-cover"
+              />
+            </div>
+            <div className="absolute -top-10 -left-10 w-40 h-40 border-t-2 border-l-2 border-[#8dcdff]/30 z-0" />
+            <div className="absolute -bottom-10 -right-10 w-40 h-40 border-b-2 border-r-2 border-[#8dcdff]/30 z-0" />
+          </div>
+          <div className="lg:col-span-7 space-y-8 order-1 lg:order-2">
+            <h2 className="text-5xl font-headline font-bold text-white tracking-tight">
+              The Human <br /><span className="text-[#8dcdff] italic">behind</span> the tech.
+            </h2>
+            <div className="space-y-6">
+              <p className="text-xl text-[#e2dfff] font-body leading-relaxed">
+                Dave Anderson is a tech evangelist, keynote speaker, musician, and storyteller. For over a decade, he&apos;s explored the collision between humanity and technology across stages, screens, and microphones.
+              </p>
+              <p className="text-[#bec8d2] font-body leading-relaxed">
+                &ldquo;Tech Seeking Human&rdquo; was born from a simple observation: technology is changing us faster than we can understand it. Dave interviews the people trying to bridge that gap&mdash;engineers, scientists, athletes, and renegade thinkers.
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-8 pt-4">
+              {featuredGuests.map((guest) => (
+                <Link key={guest.slug} href={`/podcasts/${guest.slug}`} className="group text-center">
+                  <div className="w-20 h-20 mx-auto rounded-full overflow-hidden border-2 border-[#8dcdff]/20 mb-3 grayscale group-hover:grayscale-0 transition-all">
+                    <img src={guest.image} alt={guest.name} className="w-full h-full object-cover" />
+                  </div>
+                  <p className="text-sm font-headline font-bold text-white">{guest.name}</p>
+                  <p className="text-xs text-[#bec8d2]">{guest.title}</p>
+                </Link>
+              ))}
+            </div>
+            <div className="pt-6">
+              <Link href="/about" className="flex items-center gap-3 font-headline font-bold text-white group underline decoration-[#8dcdff] underline-offset-8 decoration-2 hover:text-[#8dcdff] transition-colors">
+                Read Dave&apos;s Story
+                <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">east</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter / CTA */}
+      <section className="max-w-7xl mx-auto px-8 py-32 text-center">
+        <div className="glass-card rounded-[3rem] p-16 border border-white/5 space-y-10 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#8dcdff]/5 blur-[80px] -mr-32 -mt-32" />
+          <h2 className="text-5xl font-headline font-bold text-white max-w-2xl mx-auto leading-tight">
+            Stay human in an <span className="text-[#8dcdff] italic">automated</span> world.
           </h2>
-          <p className="text-gray-400 mb-8">
-            Subscribe to get notified when new episodes drop. No spam, just great
-            conversations.
+          <p className="text-xl text-[#bec8d2] max-w-xl mx-auto font-body">
+            Get weekly insights, reading lists, and episode outtakes delivered directly to your inbox.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <div className="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
             <input
+              className="flex-1 bg-[#33324b] border-none rounded-full px-6 py-4 text-white focus:ring-2 focus:ring-[#8dcdff]/50 placeholder:text-slate-500 font-label"
+              placeholder="Your digital mail address"
               type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-5 py-3.5 rounded-full bg-white/10 border border-white/10 text-white placeholder-gray-500 focus:border-[#03a9f4] focus:outline-none focus:ring-1 focus:ring-[#03a9f4] transition-colors"
             />
-            <button className="bg-[#03a9f4] hover:bg-[#0288d1] text-white font-semibold px-7 py-3.5 rounded-full transition-all hover:shadow-lg hover:shadow-[#03a9f4]/25 whitespace-nowrap">
-              Subscribe
+            <button className="bg-white text-[#111128] px-8 py-4 rounded-full font-headline font-bold hover:bg-[#8dcdff] transition-colors whitespace-nowrap">
+              Join The Inner Circle
             </button>
           </div>
+          <p className="text-xs font-label text-slate-500 uppercase tracking-widest">No algorithms. Just humans.</p>
         </div>
       </section>
     </>

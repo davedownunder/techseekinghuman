@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AudioPlayer from "@/components/AudioPlayer";
 
 export const metadata: Metadata = {
   title: {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | Tech Seeking Human",
   },
   description:
-    "AI, SaaS and Technology and the impact it has on our work, our lives and society. Hosted by Dave Anderson.",
+    "Long-form conversations exploring the human side of AI, technology, and innovation with the world's leading minds. Hosted by Dave Anderson.",
 };
 
 export default function RootLayout({
@@ -18,11 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">
+    <html lang="en" className="dark">
+      <body className="min-h-screen flex flex-col selection:bg-[#8dcdff]/30">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pt-24">{children}</main>
         <Footer />
+        <AudioPlayer />
       </body>
     </html>
   );

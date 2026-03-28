@@ -5,6 +5,8 @@ import {
   getPostBySlug,
   formatDate,
   getFeaturedImageUrl,
+  getExcerpt,
+  stripHtml,
 } from "@/lib/content";
 import type { Metadata } from "next";
 
@@ -20,10 +22,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
-  return {
-    title: post.title,
-    description: post.excerpt || post.title,
-  };
+  return { title: post.title, description: stripHtml(post.content).slice(0, 160) };
 }
 
 function cleanWordPressHtml(html: string): string {
@@ -47,95 +46,148 @@ export default async function PodcastPost({
   const imageUrl = getFeaturedImageUrl(post);
   const cleanContent = cleanWordPressHtml(post.content);
 
-  return (
-    <>
-      {/* Hero header */}
-      <section className="hero-gradient text-white pt-28 pb-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/podcasts"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#03a9f4] transition-colors mb-6"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            All Episodes
-          </Link>
-          <p className="text-[#03a9f4] text-xs font-bold uppercase tracking-widest mb-3">
-            Podcast Episode
-          </p>
-          <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-black leading-tight">
-            {post.title}
-          </h1>
-          <time className="text-gray-500 text-sm mt-4 block">
-            {formatDate(post.date)}
-          </time>
+  // Get related episodes (same category or just recent)
+  const allPodcasts = getPodcasts();
+  const related = allPodcasts
+    .filter((p) => p.slug !== post.slug)
+    .slice(0, 3);
 
-          {/* Listen On Buttons */}
-          <div className="flex flex-wrap gap-3 mt-6">
-            <a
-              href="https://www.youtube.com/@techseekinghuman"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white text-sm font-semibold px-4 py-2 rounded-full transition-colors"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              YouTube
-            </a>
-            <a
-              href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white text-sm font-semibold px-4 py-2 rounded-full transition-colors"
-            >
-              Apple Podcasts
-            </a>
-            <a
-              href="https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white text-sm font-semibold px-4 py-2 rounded-full transition-colors"
-            >
-              Spotify
-            </a>
+  return (
+    <div className="pb-32">
+      {/* Hero Section */}
+      <section className="relative w-full min-h-[500px] flex items-center justify-center px-8 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          {imageUrl && (
+            <img src={imageUrl} className="w-full h-full object-cover opacity-30" alt="" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#111128]/20 via-[#111128] to-[#111128]" />
+        </div>
+        <div className="relative z-10 max-w-5xl w-full pt-8">
+          <div className="glass-panel p-8 md:p-12 rounded-[2rem] border border-[#3e4851]/15 flex flex-col md:flex-row gap-12 items-center">
+            {imageUrl && (
+              <div className="w-64 h-64 flex-shrink-0 rounded-2xl overflow-hidden shadow-2xl rotate-[-2deg] border-4 border-[#282840]">
+                <img src={imageUrl} alt={post.title} className="w-full h-full object-cover" />
+              </div>
+            )}
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-4">
+                {post.categories[0] && (
+                  <span className="bg-[#8dcdff]/10 text-[#8dcdff] text-xs font-bold px-3 py-1 rounded-full font-label">
+                    {post.categories[0]}
+                  </span>
+                )}
+                <span className="text-[#bec8d2] text-xs font-medium font-label uppercase">
+                  {formatDate(post.date)}
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold font-headline leading-tight mb-6 text-white tracking-tight">
+                {post.title}
+              </h1>
+              <p className="text-[#bec8d2] text-sm mb-6 font-label">
+                Hosted by <span className="text-white font-medium">Dave Anderson</span>
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://www.youtube.com/@techseekinghuman"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#8dcdff] text-[#00344f] px-8 py-4 rounded-full flex items-center gap-3 font-bold hover:scale-105 transition-transform"
+                >
+                  <span className="material-symbols-outlined">play_circle</span>
+                  Play Episode
+                </a>
+                <button className="bg-[#33324b]/50 text-white px-6 py-4 rounded-full flex items-center gap-3 font-medium hover:bg-[#33324b] transition-colors">
+                  <span className="material-symbols-outlined">share</span>
+                  Share
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Content */}
-      <article className="py-12 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          {imageUrl && (
-            <div className="mb-10 -mt-8 rounded-2xl overflow-hidden shadow-xl">
-              <img
-                src={imageUrl}
-                alt={post.title}
-                className="w-full object-cover"
-              />
-            </div>
-          )}
-
-          <div
-            className="prose prose-lg max-w-none prose-custom prose-headings:font-heading prose-headings:font-bold prose-a:text-[#03a9f4] prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl"
-            dangerouslySetInnerHTML={{ __html: cleanContent }}
-          />
-
-          {/* Back link */}
-          <div className="mt-12 pt-8 border-t border-gray-100">
-            <Link
-              href="/podcasts"
-              className="inline-flex items-center gap-2 text-[#03a9f4] font-semibold hover:gap-3 transition-all"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to All Episodes
-            </Link>
+      {/* Content Section */}
+      <section className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 mt-12">
+        {/* Left: Show Notes */}
+        <div className="lg:col-span-8 space-y-12">
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold font-headline text-white border-l-4 border-[#8dcdff] pl-4">Show Notes</h2>
+            <div
+              className="prose prose-lg max-w-none prose-custom prose-invert prose-headings:font-headline prose-headings:font-bold prose-p:text-[#bec8d2] prose-p:leading-relaxed prose-a:text-[#8dcdff]"
+              dangerouslySetInnerHTML={{ __html: cleanContent }}
+            />
           </div>
         </div>
-      </article>
-    </>
+
+        {/* Right: Sidebar */}
+        <aside className="lg:col-span-4 space-y-8">
+          {/* Listen On */}
+          <div className="bg-[#1d1d35] rounded-3xl p-6 border border-[#3e4851]/10">
+            <h4 className="text-sm font-bold font-label uppercase tracking-widest text-[#8dcdff] mb-6">Listen On</h4>
+            <div className="space-y-4">
+              <a href="https://www.youtube.com/@techseekinghuman" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                <span className="material-symbols-outlined text-[#bec8d2]">smart_display</span>
+                <span className="text-white font-medium text-sm">YouTube</span>
+              </a>
+              <a href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                <span className="material-symbols-outlined text-[#bec8d2]">podcasts</span>
+                <span className="text-white font-medium text-sm">Apple Podcasts</span>
+              </a>
+              <a href="https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                <span className="material-symbols-outlined text-[#bec8d2]">music_note</span>
+                <span className="text-white font-medium text-sm">Spotify</span>
+              </a>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="bg-gradient-to-br from-[#03a9f4]/20 to-transparent rounded-3xl p-8 border border-[#8dcdff]/20">
+            <h4 className="text-lg font-bold font-headline text-white mb-2">Join the conversation</h4>
+            <p className="text-sm text-[#bec8d2] mb-6">Subscribe to get notified when new episodes drop.</p>
+            <a
+              href="https://www.youtube.com/@techseekinghuman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-white text-[#111128] py-3 rounded-full font-bold text-sm text-center hover:scale-[0.98] transition-transform"
+            >
+              Subscribe
+            </a>
+          </div>
+        </aside>
+      </section>
+
+      {/* Related Episodes */}
+      <section className="max-w-7xl mx-auto px-8 mt-24">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-3xl font-bold font-headline text-white mb-2">More Episodes</h2>
+            <p className="text-[#bec8d2]">Continue your journey through the conversations.</p>
+          </div>
+          <Link href="/podcasts" className="text-[#8dcdff] font-bold flex items-center gap-2 hover:gap-3 transition-all">
+            View Archive
+            <span className="material-symbols-outlined">arrow_forward</span>
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {related.map((ep) => {
+            const img = getFeaturedImageUrl(ep);
+            return (
+              <Link key={ep.slug} href={`/podcasts/${ep.slug}`} className="group cursor-pointer">
+                <div className="relative aspect-video rounded-2xl overflow-hidden mb-4">
+                  {img ? (
+                    <img src={img} alt={ep.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-[#1d1d35] to-[#0c0c22]" />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#111128]/80 to-transparent" />
+                </div>
+                <h3 className="text-lg font-bold font-headline text-white mb-2 group-hover:text-[#8dcdff] transition-colors">{ep.title}</h3>
+                <p className="text-sm text-[#bec8d2] line-clamp-2">{getExcerpt(ep)}</p>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+    </div>
   );
 }
