@@ -90,3 +90,33 @@ export function formatDate(dateStr: string): string {
     day: "numeric",
   });
 }
+
+export interface EpisodeLinks {
+  youtube: string | null;
+  spotify: string | null;
+  apple: string | null;
+}
+
+const SHOW_YOUTUBE = "https://www.youtube.com/@techseekinghuman";
+const SHOW_SPOTIFY = "https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW";
+const SHOW_APPLE = "https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009";
+
+export function getEpisodeLinks(post: WPPost): EpisodeLinks {
+  const content = post.content;
+
+  const ytMatch = content.match(
+    /https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)[^\s"<>&]+/
+  );
+  const spotifyMatch = content.match(
+    /https?:\/\/open\.spotify\.com\/episode\/[^\s"<>&]+/
+  );
+  const appleMatch = content.match(
+    /https?:\/\/podcasts\.apple\.com\/[^\s"<>&]+/
+  );
+
+  return {
+    youtube: ytMatch ? ytMatch[0] : SHOW_YOUTUBE,
+    spotify: spotifyMatch ? spotifyMatch[0] : SHOW_SPOTIFY,
+    apple: appleMatch ? appleMatch[0] : SHOW_APPLE,
+  };
+}

@@ -8,6 +8,7 @@ import {
   getFeaturedImageUrl,
   getExcerpt,
   stripHtml,
+  getEpisodeLinks,
 } from "@/lib/content";
 import type { Metadata } from "next";
 
@@ -46,6 +47,7 @@ export default async function PodcastPost({
 
   const imageUrl = getFeaturedImageUrl(post);
   const cleanContent = cleanWordPressHtml(post.content);
+  const links = getEpisodeLinks(post);
 
   // Get related episodes (same category or just recent)
   const allPodcasts = getPodcasts();
@@ -88,15 +90,17 @@ export default async function PodcastPost({
                 Hosted by <span className="text-white font-medium">Dave Anderson</span>
               </p>
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="https://www.youtube.com/@techseekinghuman"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#8dcdff] text-[#00344f] px-8 py-4 rounded-full flex items-center gap-3 font-bold hover:scale-105 transition-transform"
-                >
-                  <PlayIcon className="w-5 h-5" />
-                  Play Episode
-                </a>
+                {links.youtube && (
+                  <a
+                    href={links.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#8dcdff] text-[#00344f] px-8 py-4 rounded-full flex items-center gap-3 font-bold hover:scale-105 transition-transform"
+                  >
+                    <PlayIcon className="w-5 h-5" />
+                    Play Episode
+                  </a>
+                )}
                 <button className="bg-[#33324b]/50 text-white px-6 py-4 rounded-full flex items-center gap-3 font-medium hover:bg-[#33324b] transition-colors">
                   <ShareIcon className="w-5 h-5" />
                   Share
@@ -126,18 +130,24 @@ export default async function PodcastPost({
           <div className="bg-[#1d1d35] rounded-3xl p-6 border border-[#3e4851]/10">
             <h4 className="text-sm font-bold font-label uppercase tracking-widest text-[#8dcdff] mb-6">Listen On</h4>
             <div className="space-y-4">
-              <a href="https://www.youtube.com/@techseekinghuman" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
-                <YouTubeIcon className="w-5 h-5 text-[#bec8d2]" />
-                <span className="text-white font-medium text-sm">YouTube</span>
-              </a>
-              <a href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
-                <ApplePodcastIcon className="w-5 h-5 text-[#bec8d2]" />
-                <span className="text-white font-medium text-sm">Apple Podcasts</span>
-              </a>
-              <a href="https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
-                <SpotifyIcon className="w-5 h-5 text-[#bec8d2]" />
-                <span className="text-white font-medium text-sm">Spotify</span>
-              </a>
+              {links.youtube && (
+                <a href={links.youtube} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                  <YouTubeIcon className="w-5 h-5 text-[#bec8d2]" />
+                  <span className="text-white font-medium text-sm">YouTube</span>
+                </a>
+              )}
+              {links.apple && (
+                <a href={links.apple} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                  <ApplePodcastIcon className="w-5 h-5 text-[#bec8d2]" />
+                  <span className="text-white font-medium text-sm">Apple Podcasts</span>
+                </a>
+              )}
+              {links.spotify && (
+                <a href={links.spotify} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
+                  <SpotifyIcon className="w-5 h-5 text-[#bec8d2]" />
+                  <span className="text-white font-medium text-sm">Spotify</span>
+                </a>
+              )}
             </div>
           </div>
 
@@ -146,7 +156,7 @@ export default async function PodcastPost({
             <h4 className="text-lg font-bold font-headline text-white mb-2">Join the conversation</h4>
             <p className="text-sm text-[#bec8d2] mb-6">Subscribe to get notified when new episodes drop.</p>
             <a
-              href="https://www.youtube.com/@techseekinghuman"
+              href={links.youtube || "https://www.youtube.com/@techseekinghuman"}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full bg-white text-[#111128] py-3 rounded-full font-bold text-sm text-center hover:scale-[0.98] transition-transform"
