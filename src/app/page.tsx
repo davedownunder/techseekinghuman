@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPodcasts, getBlogPosts, getFeaturedImageUrl, getExcerpt, formatDate } from "@/lib/content";
+import { PlayIcon, ArrowRightIcon, HeadphonesIcon, YouTubeIcon, SpotifyIcon, ApplePodcastIcon } from "@/components/Icons";
 
 const featuredGuests = [
   {
@@ -53,7 +54,7 @@ export default function Home() {
                 href={latest[0] ? `/podcasts/${latest[0].slug}` : "/podcasts"}
                 className="flex items-center gap-3 bg-gradient-to-r from-[#8dcdff] to-[#03a9f4] text-[#00344f] px-8 py-4 rounded-full font-headline font-bold text-lg shadow-lg shadow-[#8dcdff]/20 transition-all hover:scale-105"
               >
-                <span className="material-symbols-outlined">play_arrow</span>
+                <PlayIcon />
                 Listen to Latest
               </Link>
               <Link
@@ -96,7 +97,7 @@ export default function Home() {
           <div className="hidden md:block">
             <Link href="/podcasts" className="text-[#8dcdff] font-headline font-bold flex items-center gap-2 group">
               Browse Full Archive
-              <span className="material-symbols-outlined transition-transform group-hover:translate-x-2">arrow_forward</span>
+              <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-2" />
             </Link>
           </div>
         </div>
@@ -115,7 +116,7 @@ export default function Home() {
                 <h3 className="text-4xl font-headline font-bold text-white max-w-lg leading-tight">{latest[0].title}</h3>
                 <p className="text-[#bec8d2] max-w-sm line-clamp-2">{getExcerpt(latest[0])}</p>
                 <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#111128] transform group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined">play_arrow</span>
+                  <PlayIcon />
                 </div>
               </div>
             </Link>
@@ -138,7 +139,7 @@ export default function Home() {
                   <h4 className="text-xl font-headline font-bold text-white group-hover:text-[#8dcdff] transition-colors">{post.title}</h4>
                 </div>
                 <span className="flex items-center gap-2 text-sm font-label font-bold uppercase tracking-wider text-[#8dcdff]">
-                  Listen Now <span className="material-symbols-outlined text-sm">headphones</span>
+                  Listen Now <HeadphonesIcon className="w-4 h-4" />
                 </span>
               </Link>
             );
@@ -186,7 +187,7 @@ export default function Home() {
             <div className="pt-6">
               <Link href="/about" className="flex items-center gap-3 font-headline font-bold text-white group underline decoration-[#8dcdff] underline-offset-8 decoration-2 hover:text-[#8dcdff] transition-colors">
                 Read Dave&apos;s Story
-                <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">east</span>
+                <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </div>

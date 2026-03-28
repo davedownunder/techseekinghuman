@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { WPPost, getExcerpt, formatDate, getFeaturedImageUrl } from "@/lib/content";
+import { PlayIcon } from "@/components/Icons";
 
 interface EpisodeCardProps {
   post: WPPost;
@@ -9,18 +10,12 @@ interface EpisodeCardProps {
 export default function EpisodeCard({ post, index }: EpisodeCardProps) {
   const imageUrl = getFeaturedImageUrl(post);
   const excerpt = getExcerpt(post);
-  const epNum = index !== undefined ? index : undefined;
 
   return (
     <Link href={`/podcasts/${post.slug}`} className="glass-card rounded-xl overflow-hidden group flex flex-col">
       <div className="relative h-64 overflow-hidden">
         {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={post.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
-          />
+          <img src={imageUrl} alt={post.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-[#1d1d35] to-[#0c0c22]" />
         )}
@@ -35,20 +30,18 @@ export default function EpisodeCard({ post, index }: EpisodeCardProps) {
       </div>
       <div className="p-8 flex flex-col flex-grow">
         <div className="flex items-center gap-3 text-[#bec8d2] text-xs mb-4 font-label">
-          {epNum !== undefined && <span>EP. {epNum}</span>}
-          {epNum !== undefined && <span className="w-1 h-1 rounded-full bg-[#3e4851]" />}
+          {index !== undefined && <span>EP. {index}</span>}
+          {index !== undefined && <span className="w-1 h-1 rounded-full bg-[#3e4851]" />}
           <span>{formatDate(post.date)}</span>
         </div>
         <h3 className="font-headline text-2xl font-bold mb-4 leading-tight text-white group-hover:text-[#8dcdff] transition-colors">
           {post.title}
         </h3>
-        <p className="text-[#bec8d2] text-sm mb-8 line-clamp-3 leading-relaxed">
-          {excerpt}
-        </p>
+        <p className="text-[#bec8d2] text-sm mb-8 line-clamp-3 leading-relaxed">{excerpt}</p>
         <div className="mt-auto flex items-center justify-between">
           <span className="flex items-center gap-2 text-[#8dcdff] font-bold font-label text-sm">
             <span className="bg-[#8dcdff] text-[#00344f] p-2 rounded-full">
-              <span className="material-symbols-outlined text-base">play_arrow</span>
+              <PlayIcon className="w-4 h-4" />
             </span>
             Listen Now
           </span>

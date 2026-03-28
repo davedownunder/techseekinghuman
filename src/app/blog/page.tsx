@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getBlogPosts, getFeaturedImageUrl, getExcerpt, formatDate } from "@/lib/content";
+import { ArrowRightIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Blog | Insights",
@@ -77,7 +78,7 @@ export default function BlogPage() {
                   </div>
                   <div className="mt-4 flex items-center gap-2 text-[#8dcdff] font-bold text-sm">
                     Read More
-                    <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    <ArrowRightIcon className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </div>

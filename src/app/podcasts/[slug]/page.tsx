@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { PlayIcon, ShareIcon, ArrowRightIcon, ArrowLeftIcon, YouTubeIcon, SpotifyIcon, ApplePodcastIcon } from "@/components/Icons";
 import {
   getPodcasts,
   getPostBySlug,
@@ -93,11 +94,11 @@ export default async function PodcastPost({
                   rel="noopener noreferrer"
                   className="bg-[#8dcdff] text-[#00344f] px-8 py-4 rounded-full flex items-center gap-3 font-bold hover:scale-105 transition-transform"
                 >
-                  <span className="material-symbols-outlined">play_circle</span>
+                  <PlayIcon className="w-5 h-5" />
                   Play Episode
                 </a>
                 <button className="bg-[#33324b]/50 text-white px-6 py-4 rounded-full flex items-center gap-3 font-medium hover:bg-[#33324b] transition-colors">
-                  <span className="material-symbols-outlined">share</span>
+                  <ShareIcon className="w-5 h-5" />
                   Share
                 </button>
               </div>
@@ -126,15 +127,15 @@ export default async function PodcastPost({
             <h4 className="text-sm font-bold font-label uppercase tracking-widest text-[#8dcdff] mb-6">Listen On</h4>
             <div className="space-y-4">
               <a href="https://www.youtube.com/@techseekinghuman" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
-                <span className="material-symbols-outlined text-[#bec8d2]">smart_display</span>
+                <YouTubeIcon className="w-5 h-5 text-[#bec8d2]" />
                 <span className="text-white font-medium text-sm">YouTube</span>
               </a>
               <a href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
-                <span className="material-symbols-outlined text-[#bec8d2]">podcasts</span>
+                <ApplePodcastIcon className="w-5 h-5 text-[#bec8d2]" />
                 <span className="text-white font-medium text-sm">Apple Podcasts</span>
               </a>
               <a href="https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
-                <span className="material-symbols-outlined text-[#bec8d2]">music_note</span>
+                <SpotifyIcon className="w-5 h-5 text-[#bec8d2]" />
                 <span className="text-white font-medium text-sm">Spotify</span>
               </a>
             </div>
@@ -165,7 +166,7 @@ export default async function PodcastPost({
           </div>
           <Link href="/podcasts" className="text-[#8dcdff] font-bold flex items-center gap-2 hover:gap-3 transition-all">
             View Archive
-            <span className="material-symbols-outlined">arrow_forward</span>
+            <ArrowRightIcon className="w-4 h-4" />
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

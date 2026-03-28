@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getBlogPosts, getPostBySlug, formatDate, getFeaturedImageUrl, stripHtml } from "@/lib/content";
+import { ArrowLeftIcon } from "@/components/Icons";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -37,7 +38,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         )}
         <div className="relative z-10 max-w-3xl mx-auto w-full">
           <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-[#8dcdff] transition-colors mb-6">
-            <span className="material-symbols-outlined text-sm">arrow_back</span>
+            <ArrowLeftIcon className="w-4 h-4" />
             Back to Blog
           </Link>
           <div className="flex items-center gap-3 mb-4">
@@ -63,7 +64,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         />
         <div className="mt-12 pt-8 border-t border-white/5">
           <Link href="/blog" className="inline-flex items-center gap-2 text-[#8dcdff] font-bold hover:gap-3 transition-all">
-            <span className="material-symbols-outlined text-sm">arrow_back</span>
+            <ArrowLeftIcon className="w-4 h-4" />
             Back to Blog
           </Link>
         </div>

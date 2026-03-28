@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { SearchIcon } from "@/components/Icons";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -42,8 +43,8 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-6">
-          <button className="material-symbols-outlined text-slate-400 hover:text-white transition-colors hidden md:block">
-            search
+          <button className="text-slate-400 hover:text-white transition-colors hidden md:block">
+            <SearchIcon />
           </button>
           <a
             href="https://www.youtube.com/@techseekinghuman"
@@ -57,10 +58,15 @@ export default function Header() {
           <button
             className="md:hidden text-white"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
           >
-            <span className="material-symbols-outlined">
-              {mobileOpen ? "close" : "menu"}
-            </span>
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              {mobileOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
           </button>
         </div>
       </div>

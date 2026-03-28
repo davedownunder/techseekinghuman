@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { YouTubeIcon, SpotifyIcon, ApplePodcastIcon } from "@/components/Icons";
 
 export default function Footer() {
   return (
@@ -13,9 +14,15 @@ export default function Footer() {
             conversations with the architects of our digital future.
           </p>
           <div className="flex gap-4">
-            <a href="https://www.youtube.com/@techseekinghuman" target="_blank" rel="noopener noreferrer" className="material-symbols-outlined text-slate-500 hover:text-[#8dcdff] cursor-pointer transition-colors">smart_display</a>
-            <a href="https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW" target="_blank" rel="noopener noreferrer" className="material-symbols-outlined text-slate-500 hover:text-[#8dcdff] cursor-pointer transition-colors">podcasts</a>
-            <a href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009" target="_blank" rel="noopener noreferrer" className="material-symbols-outlined text-slate-500 hover:text-[#8dcdff] cursor-pointer transition-colors">rss_feed</a>
+            <a href="https://www.youtube.com/@techseekinghuman" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-[#FF0000] transition-colors" aria-label="YouTube">
+              <YouTubeIcon className="w-6 h-6" />
+            </a>
+            <a href="https://open.spotify.com/show/0ycSRgl5JOmFCR0MvRqMjW" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-[#1DB954] transition-colors" aria-label="Spotify">
+              <SpotifyIcon className="w-6 h-6" />
+            </a>
+            <a href="https://podcasts.apple.com/au/podcast/tech-seeking-human/id1534682009" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-purple-400 transition-colors" aria-label="Apple Podcasts">
+              <ApplePodcastIcon className="w-6 h-6" />
+            </a>
           </div>
         </div>
 
