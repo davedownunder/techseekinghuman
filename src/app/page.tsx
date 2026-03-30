@@ -194,6 +194,50 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Magic Johnson Callout */}
+      <section className="max-w-7xl mx-auto px-8 py-32">
+        <p className="text-xs font-label uppercase tracking-[0.3em] text-[#8dcdff] mb-6">Snippet of How We Got Started</p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <div className="lg:col-span-6 space-y-8">
+            <h2 className="text-5xl md:text-6xl font-headline font-bold text-white leading-tight">
+              NBA Hall of Famer <br /><span className="text-[#8dcdff] italic">Magic Johnson</span>
+            </h2>
+            <p className="text-xl text-[#bec8d2] font-body leading-relaxed max-w-lg">
+              One of the conversations that sparked Tech Seeking Human &mdash; an unforgettable exchange with basketball legend and business mogul Magic Johnson on technology, leadership, and staying human in a changing world.
+            </p>
+            <a
+              href="https://www.youtube.com/watch?v=VTIEc07ycZI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#8dcdff] to-[#03a9f4] text-[#00344f] px-8 py-4 rounded-full font-headline font-bold text-lg shadow-lg shadow-[#8dcdff]/20 transition-all hover:scale-105"
+            >
+              <PlayIcon />
+              Watch Snippet
+            </a>
+          </div>
+          <div className="lg:col-span-6 relative">
+            <div className="aspect-video rounded-3xl overflow-hidden glass-card border border-[#3e4851]/20 shadow-2xl relative group">
+              <img
+                src="https://img.youtube.com/vi/VTIEc07ycZI/maxresdefault.jpg"
+                alt="Magic Johnson interview snippet"
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c22]/60 to-transparent" />
+              <a
+                href="https://www.youtube.com/watch?v=VTIEc07ycZI"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center text-[#111128] transform group-hover:scale-110 transition-transform shadow-2xl">
+                  <PlayIcon />
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Newsletter / CTA */}
       <section className="max-w-7xl mx-auto px-8 py-32 text-center">
         <div className="glass-card rounded-[3rem] p-16 border border-white/5 space-y-10 relative overflow-hidden">
