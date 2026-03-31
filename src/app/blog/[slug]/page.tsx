@@ -60,8 +60,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             </div>
           )}
           <div
-            className="prose prose-lg prose-slate max-w-none prose-headings:font-headline prose-headings:font-bold"
-            style={{ color: '#475569' }}
+            className="prose prose-lg prose-slate prose-blog max-w-none"
             dangerouslySetInnerHTML={{ __html: cleanWP(post.content) }}
           />
           <div className="mt-12 pt-8 border-t border-slate-200">
