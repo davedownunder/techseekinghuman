@@ -18,12 +18,10 @@ export default function Header() {
   return (
     <nav className="fixed top-0 w-full z-50 bg-[#111128]/60 backdrop-blur-xl shadow-[0_24px_40px_rgba(17,17,40,0.06)]">
       <div className="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
-        <Link href="/" className="flex items-center">
-          <img
-            src="/images/logo.jpg"
-            alt="Tech Seeking Human"
-            className="h-10 w-auto"
-          />
+        <Link href="/" className="flex flex-col items-center leading-none gap-0">
+          <span className="text-white font-headline font-bold text-lg tracking-tight">TECH</span>
+          <span className="text-[#8dcdff] font-headline font-bold text-[0.6rem] tracking-[0.35em]">&lt;SEEKING&gt;</span>
+          <span className="text-white font-headline font-bold text-lg tracking-tight">HUMAN</span>
         </Link>
 
         {/* Desktop nav */}
