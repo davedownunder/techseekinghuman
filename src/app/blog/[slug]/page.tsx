@@ -27,8 +27,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const imageUrl = getFeaturedImageUrl(post);
 
   return (
-    <article className="pb-24">
-      {/* Header */}
+    <article className="pb-0">
+      {/* Header — stays dark */}
       <section className="relative min-h-[300px] flex items-end px-8 overflow-hidden pt-8 pb-12">
         {imageUrl && (
           <>
@@ -51,22 +51,25 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         </div>
       </section>
 
-      {/* Content */}
-      <div className="max-w-3xl mx-auto px-8">
-        {imageUrl && (
-          <div className="mb-10 -mt-4 rounded-2xl overflow-hidden shadow-xl">
-            <img src={imageUrl} alt={post.title} className="w-full object-cover" />
+      {/* Content — white background */}
+      <div className="bg-white" style={{ color: '#334155' }}>
+        <div className="max-w-3xl mx-auto px-8 py-16">
+          {imageUrl && (
+            <div className="mb-10 rounded-2xl overflow-hidden shadow-xl">
+              <img src={imageUrl} alt={post.title} className="w-full object-cover" />
+            </div>
+          )}
+          <div
+            className="prose prose-lg prose-slate max-w-none prose-headings:font-headline prose-headings:font-bold"
+            style={{ color: '#475569' }}
+            dangerouslySetInnerHTML={{ __html: cleanWP(post.content) }}
+          />
+          <div className="mt-12 pt-8 border-t border-slate-200">
+            <Link href="/blog" className="inline-flex items-center gap-2 text-[#03a9f4] font-bold hover:gap-3 transition-all">
+              <ArrowLeftIcon className="w-4 h-4" />
+              Back to Blog
+            </Link>
           </div>
-        )}
-        <div
-          className="prose prose-lg max-w-none prose-custom prose-invert prose-headings:font-headline prose-headings:font-bold prose-p:text-[#bec8d2] prose-p:leading-relaxed prose-a:text-[#8dcdff]"
-          dangerouslySetInnerHTML={{ __html: cleanWP(post.content) }}
-        />
-        <div className="mt-12 pt-8 border-t border-white/5">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-[#8dcdff] font-bold hover:gap-3 transition-all">
-            <ArrowLeftIcon className="w-4 h-4" />
-            Back to Blog
-          </Link>
         </div>
       </div>
     </article>

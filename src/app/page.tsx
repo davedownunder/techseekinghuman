@@ -6,19 +6,19 @@ const featuredGuests = [
   {
     name: "Max Tegmark",
     title: "MIT Professor & Future of Life Institute",
-    image: "https://www.techseekinghuman.ai/wp-content/uploads/2021/03/maxtegmark.jpg",
+    image: "/wp-content/uploads/2021/03/maxtegmark.jpg",
     slug: "episode-2-max-tegmark",
   },
   {
     name: "Adam Cheyer",
     title: "Co-founder of Siri",
-    image: "https://www.techseekinghuman.ai/wp-content/uploads/2021/07/adam_cheyer.jpg",
+    image: "/wp-content/uploads/2021/07/adam_cheyer.jpg",
     slug: "adam-cheyer-siri-co-founder-on-the-rise-of-mainstream-ai",
   },
   {
     name: "Hannah Fry",
     title: "BBC Presenter & Mathematician",
-    image: "https://www.techseekinghuman.ai/wp-content/uploads/2021/06/cropped-Hannah_Theatre-seats2-copy-1-scaled-1.jpeg",
+    image: "/wp-content/uploads/2021/06/cropped-Hannah_Theatre-seats2-copy-1-scaled-1.jpeg",
     slug: "hannah-fry-cookies-cows-and-the-future-of-ai",
   },
 ];
@@ -153,7 +153,7 @@ export default function Home() {
           <div className="lg:col-span-5 relative order-2 lg:order-1">
             <div className="relative z-10 rounded-3xl overflow-hidden grayscale contrast-125 border border-white/5">
               <img
-                src="https://www.techseekinghuman.ai/wp-content/uploads/2023/03/dave-1.png"
+                src="/wp-content/uploads/2023/03/dave-1.png"
                 alt="Dave Anderson"
                 className="w-full object-cover"
               />
