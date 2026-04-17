@@ -70,6 +70,22 @@
   ],
   "posts": [
     {
+      "title": "The Future of Training Is Real Time — Max Darsonval, Velocity AI, Former Navy SEAL",
+      "slug": "the-future-of-training-is-real-time-max-darsonval-velocity-ai",
+      "date": "2026-04-17 10:00:00",
+      "content": "<p>In this episode, Dave Anderson interviews <strong>Max Darsonval</strong>, former elite Navy SEAL and founder of <strong>Velocity AI</strong> — a groundbreaking real-time adaptive coaching system that leverages proprietary hardware and AI to personalize fitness training. They explore Max's impressive background, the technology behind Velocity AI, and its potential to revolutionize strength and performance training.</p>\n\n<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\nhttps://youtu.be/k8gvME-7I8k\n</div></figure>\n\n<h3>Key Topics</h3>\n<ul>\n\t<li>Velocity AI's real-time adaptive coaching technology</li>\n\t<li>Max Darsonval's background in Navy SEALs, martial arts, and skiing</li>\n\t<li>The science of velocity-based training and AI integration</li>\n\t<li>Hardware development and device capabilities</li>\n\t<li>Personalized workout programming and auto-regulation</li>\n</ul>\n\n<h3>Chapters</h3>\n<ul>\n\t<li><strong>00:00</strong> Introduction to Velocity AI and Its Vision</li>\n\t<li><strong>03:08</strong> Max Darsonval's Unique Background and Journey</li>\n\t<li><strong>11:51</strong> The Concept Behind Velocity AI</li>\n\t<li><strong>16:06</strong> Personalized Strength Training with AI</li>\n\t<li><strong>23:11</strong> Real-Time Performance Tracking and Adaptation</li>\n\t<li><strong>24:41</strong> Understanding Heart Rate Variability and Recovery</li>\n\t<li><strong>27:15</strong> Velocity-Based Training: A New Approach</li>\n\t<li><strong>32:55</strong> Integrating Strength and Aerobic Training</li>\n\t<li><strong>33:55</strong> The Importance of Nutrition in Training</li>\n\t<li><strong>37:18</strong> Pricing and Launch Details</li>\n</ul>\n\n<div class=\"wp-block-buttons\">\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link wp-element-button\" href=\"https://open.spotify.com/episode/5DVgJl4XKmCpwhTfZcS1bK\">Spotify</a></div>\n<div class=\"wp-block-button\"><a class=\"wp-block-button__link wp-element-button\" href=\"https://podcasts.apple.com/us/podcast/the-future-of-training-is-real-time-max/id1571011755?i=1000762043053\">Apple Podcasts</a></div>\n</div>",
+      "excerpt": "Former Navy SEAL Max Darsonval on Velocity AI — a real-time adaptive coaching system using proprietary hardware and AI to personalize strength and performance training.",
+      "categories": [
+        "Podcasts",
+        "Season 1"
+      ],
+      "tags": [
+        "EPISODE 50"
+      ],
+      "featured_image_id": "1250",
+      "type": "post"
+    },
+    {
       "title": "How I Rebuilt My Entire Website in 60 Minutes Using AI — And Now My Hosting is Free",
       "slug": "how-i-rebuilt-my-website-in-60-minutes-using-ai",
       "date": "2026-03-30 10:00:00",
@@ -969,7 +985,8 @@
     "1228": "/wp-content/uploads/2025/08/2A62861A-A3DA-4925-BAF0-A54127A85678.jpg",
     "1231": "/wp-content/uploads/2025/08/77f9a00d-acba-4554-a907-f07cc42f8935.jpg",
     "1234": "/wp-content/uploads/2025/08/AI-1.jpg",
-    "1241": "/wp-content/uploads/2025/10/Using-Voice-AI-to-Detect-Mental-Health-Disorders-1.jpg"
+    "1241": "/wp-content/uploads/2025/10/Using-Voice-AI-to-Detect-Mental-Health-Disorders-1.jpg",
+    "1250": "/wp-content/uploads/2026/04/max-darsonval-velocity-ai.jpeg"
   },
   "nav_items": [
     {
@@ -1015,7 +1032,7 @@
   ],
   "stats": {
     "pages": 6,
-    "posts": 44,
-    "attachments": 227
+    "posts": 45,
+    "attachments": 228
   }
 }
